@@ -11,8 +11,10 @@ library protocol; // ignore_for_file: no_leading_underscores_for_library_prefixe
 
 import 'package:serverpod/serverpod.dart' as _i1;
 import 'package:serverpod/protocol.dart' as _i2;
-import 'note.dart' as _i3;
-import 'package:notes_server/src/generated/note.dart' as _i4;
+import 'exception.dart' as _i3;
+import 'note.dart' as _i4;
+import 'package:notes_server/src/generated/note.dart' as _i5;
+export 'exception.dart';
 export 'note.dart';
 
 class Protocol extends _i1.SerializationManagerServer {
@@ -70,14 +72,20 @@ class Protocol extends _i1.SerializationManagerServer {
     Type? t,
   ]) {
     t ??= T;
-    if (t == _i3.Note) {
-      return _i3.Note.fromJson(data) as T;
+    if (t == _i3.CustomException) {
+      return _i3.CustomException.fromJson(data) as T;
     }
-    if (t == _i1.getType<_i3.Note?>()) {
-      return (data != null ? _i3.Note.fromJson(data) : null) as T;
+    if (t == _i4.Note) {
+      return _i4.Note.fromJson(data) as T;
     }
-    if (t == List<_i4.Note>) {
-      return (data as List).map((e) => deserialize<_i4.Note>(e)).toList()
+    if (t == _i1.getType<_i3.CustomException?>()) {
+      return (data != null ? _i3.CustomException.fromJson(data) : null) as T;
+    }
+    if (t == _i1.getType<_i4.Note?>()) {
+      return (data != null ? _i4.Note.fromJson(data) : null) as T;
+    }
+    if (t == List<_i5.Note>) {
+      return (data as List).map((e) => deserialize<_i5.Note>(e)).toList()
           as dynamic;
     }
     try {
@@ -88,7 +96,10 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   String? getClassNameForObject(Object data) {
-    if (data is _i3.Note) {
+    if (data is _i3.CustomException) {
+      return 'CustomException';
+    }
+    if (data is _i4.Note) {
       return 'Note';
     }
     return super.getClassNameForObject(data);
@@ -96,8 +107,11 @@ class Protocol extends _i1.SerializationManagerServer {
 
   @override
   dynamic deserializeByClassName(Map<String, dynamic> data) {
+    if (data['className'] == 'CustomException') {
+      return deserialize<_i3.CustomException>(data['data']);
+    }
     if (data['className'] == 'Note') {
-      return deserialize<_i3.Note>(data['data']);
+      return deserialize<_i4.Note>(data['data']);
     }
     return super.deserializeByClassName(data);
   }
@@ -111,8 +125,8 @@ class Protocol extends _i1.SerializationManagerServer {
       }
     }
     switch (t) {
-      case _i3.Note:
-        return _i3.Note.t;
+      case _i4.Note:
+        return _i4.Note.t;
     }
     return null;
   }

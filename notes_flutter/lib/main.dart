@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:notes_flutter/core/router/app_router.dart';
+import 'package:notes_flutter/core/theme/theme.dart';
 
 void main() {
   runApp(const NotesWithServerpod());
@@ -9,12 +11,10 @@ class NotesWithServerpod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Notes With Serverpod',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        useMaterial3: true
-      ),
+      theme: AppTheme.darkThemeMode,
+      routerConfig: routes,
     );
   }
 }

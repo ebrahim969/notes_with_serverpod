@@ -1,4 +1,3 @@
-import 'package:notes_server/src/exception/custom_exception.dart';
 import 'package:serverpod/serverpod.dart';
 import '../generated/protocol.dart';
 
@@ -8,10 +7,10 @@ class NotesEndpoint extends Endpoint {
       await Note.db.insertRow(session, note);
     } on DatabaseDeleteRowException catch (e) {
       session.log(e.toString());
-      throw CustomException(e.message);
+      throw CustomException(message: e.message);
     } catch (e) {
       session.log(e.toString());
-      throw CustomException(e.toString());
+      throw CustomException(message: e.toString());
     }
   }
 
@@ -20,10 +19,10 @@ class NotesEndpoint extends Endpoint {
       await Note.db.deleteRow(session, note);
     } on DatabaseDeleteRowException catch (e) {
       session.log(e.toString());
-      throw CustomException(e.message);
+      throw CustomException(message: e.message);
     } catch (e) {
       session.log(e.toString());
-      throw CustomException(e.toString());
+      throw CustomException(message: e.toString());
     }
   }
 
@@ -35,10 +34,10 @@ class NotesEndpoint extends Endpoint {
       );
     } on DatabaseDeleteRowException catch (e) {
       session.log(e.toString());
-      throw CustomException(e.message);
+      throw CustomException(message: e.message);
     } catch (e) {
       session.log(e.toString());
-      throw CustomException(e.toString());
+      throw CustomException(message: e.toString());
     }
   }
 
@@ -51,10 +50,10 @@ class NotesEndpoint extends Endpoint {
       return updatedNote;
     } on DatabaseDeleteRowException catch (e) {
       session.log(e.toString());
-      throw CustomException(e.message);
+      throw CustomException(message: e.message);
     } catch (e) {
       session.log(e.toString());
-      throw CustomException(e.toString());
+      throw CustomException(message: e.toString());
     }
   }
 }
