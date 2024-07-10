@@ -1,21 +1,27 @@
+import 'package:flexify/flexify.dart';
+import 'package:flutter/material.dart';
 
-import 'package:go_router/go_router.dart';
-
-void customNavigate(context, String path, {Object? extra}) {
-  GoRouter.of(context).push(path, extra: extra,);
+void customNavigate(Widget path) {
+  Flexify.go(
+    path,
+    animation: FlexifyRouteAnimations.slide,
+    animationDuration: const Duration(milliseconds: 500),
+  );
 }
 
 void custompopNavigate(context) {
-  GoRouter.of(context).pop();
+  Flexify.back();
 }
 
-void customReplacementNavigate(context, String path, {Object? extra}) {
-  GoRouter.of(context).pushReplacement(path);
+void customReplacementNavigate(Widget path) {
+  Flexify.goRemove(
+    path,
+  animation: FlexifyRouteAnimations.scale,
+  duration: const Duration(milliseconds: 500),);
 }
 
 void delayedNavigate(context, path) {
   Future.delayed(const Duration(seconds: 2), () {
-    customReplacementNavigate(context, path);
+    customReplacementNavigate(path);
   });
 }
-

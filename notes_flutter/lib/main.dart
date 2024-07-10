@@ -1,9 +1,22 @@
+import 'package:flexify/flexify.dart';
 import 'package:flutter/material.dart';
-import 'package:notes_flutter/core/router/app_router.dart';
 import 'package:notes_flutter/core/theme/theme.dart';
+import 'package:notes_flutter/features/note/presentation/provider/create_note_provider.dart';
+import 'package:notes_flutter/features/note/presentation/provider/get_all_notes_provider.dart';
+import 'package:notes_flutter/features/note/presentation/views/notes_view.dart';
+import 'package:notes_flutter/injection_container.dart';
+import 'package:provider/provider.dart';
 
-void main() {
-  runApp(const NotesWithServerpod());
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await initDependenceis();
+  runApp(MultiProvider(
+    providers: [
+      ChangeNotifierProvider(create: (_)=> sl<CreateNoteProvider>()),
+      ChangeNotifierProvider(create: (_)=> sl<GetAllNotesProvider>()),
+    ],
+
+    child: const NotesWithServerpod()));
 }
 
 class NotesWithServerpod extends StatelessWidget {
@@ -11,10 +24,14 @@ class NotesWithServerpod extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'Notes With Serverpod',
-      theme: AppTheme.darkThemeMode,
-      routerConfig: routes,
+    return Flexify(
+      designWidth: 375,
+      designHeight: 812,
+      app: MaterialApp(
+        title: 'Notes With Serverpod',
+        theme: AppTheme.darkThemeMode,
+        home: const NotesView(),
+      ),
     );
   }
 }
