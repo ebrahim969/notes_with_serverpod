@@ -16,7 +16,7 @@ class UpdateNoteUsecase implements UseCase<Note, UpdateNoteParams> {
 
 class UpdateNoteParams {
   final String title;
-  final int? id;
+  final int id;
 
   UpdateNoteParams({required this.title, required this.id});
 }

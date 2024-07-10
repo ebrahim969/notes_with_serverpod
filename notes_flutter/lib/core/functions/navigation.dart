@@ -9,7 +9,7 @@ void customNavigate(Widget path) {
   );
 }
 
-void custompopNavigate(context) {
+void custompopNavigate() {
   Flexify.back();
 }
 

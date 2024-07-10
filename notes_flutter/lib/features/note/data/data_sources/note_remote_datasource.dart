@@ -16,7 +16,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   Future<void> createNote({required Note note}) async {
     try {
       await client.notes.createNote(note);
-    } on ServerException catch (e) {
+    } on CustomException catch (e) {
       throw ServerException(e.message);
     }
   }
@@ -25,7 +25,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   Future<void> deleteNote({required Note note}) async {
     try {
       await client.notes.deleteNote(note);
-    } on ServerException catch (e) {
+    } on CustomException catch (e) {
       throw ServerException(e.message);
     }
   }
@@ -34,7 +34,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   Future<List<Note>> getAllNotes() async {
     try {
       return await client.notes.getAllNotes();
-    } on ServerException catch (e) {
+    } on CustomException catch (e) {
       throw ServerException(e.message);
     }
   }
@@ -43,7 +43,7 @@ class NoteRemoteDataSourceImpl implements NoteRemoteDataSource {
   Future<Note> updateNote({required Note note}) async{
     try {
       return await client.notes.updateNote(note);
-    } on ServerException catch (e) {
+    } on CustomException catch (e) {
       throw ServerException(e.message);
     }
   }

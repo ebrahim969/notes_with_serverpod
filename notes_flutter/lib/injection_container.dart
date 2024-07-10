@@ -18,6 +18,7 @@ Future<void> initDependenceis() async {
     ..connectivityMonitor = FlutterConnectivityMonitor();
 
   sl.registerLazySingleton(() => client);
+  initNote();
 }
 
 initNote() {

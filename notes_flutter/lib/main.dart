@@ -13,7 +13,7 @@ void main() async {
   runApp(MultiProvider(
     providers: [
       ChangeNotifierProvider(create: (_)=> sl<CreateNoteProvider>()),
-      ChangeNotifierProvider(create: (_)=> sl<GetAllNotesProvider>()),
+      ChangeNotifierProvider(create: (_)=> sl<GetAllNotesProvider>()..getAllNotesEvent()),
     ],
 
     child: const NotesWithServerpod()));

@@ -9,12 +9,12 @@ class CreateNoteUsecase implements UseCase<Unit, CreateNoteParams> {
   CreateNoteUsecase(this.noteRepository);
   @override
   Future<Either<Failures, Unit>> call(CreateNoteParams params) async {
-    return await noteRepository.createNote(title: params.title);
+    return await noteRepository.createNote(title: params.title, id: params.id);
   }
 }
 
 class CreateNoteParams {
   final String title;
-
-  CreateNoteParams({required this.title});
+  final int id;
+  CreateNoteParams({required this.title, required this.id});
 }

@@ -8,6 +8,9 @@ class CreateNoteProvider extends ChangeNotifier {
 
   CreateNoteProvider(this.createNoteUsecase);
 
+  int _lastid = 0;
+  int get nextId => ++_lastid;
+
   CreateNoteStates _states = CreateNoteStates.initial;
   CreateNoteStates get state => _states;
 
@@ -17,8 +20,9 @@ class CreateNoteProvider extends ChangeNotifier {
   void createNoteEvent({required String title}) async {
     _states = CreateNoteStates.loading;
     notifyListeners();
-
-    final createNote = await createNoteUsecase(CreateNoteParams(title: title));
+    int newId = nextId;
+    final createNote =
+        await createNoteUsecase(CreateNoteParams(title: title, id: newId));
     createNote.fold((failure) {
       _states = CreateNoteStates.failure;
       _errorMessage = failure.message;
@@ -26,6 +30,12 @@ class CreateNoteProvider extends ChangeNotifier {
       _states = CreateNoteStates.success;
       _errorMessage = null;
     });
+    notifyListeners();
+
+  }
+
+  void resetState() {
+    _states = CreateNoteStates.initial;
     notifyListeners();
   }
 }

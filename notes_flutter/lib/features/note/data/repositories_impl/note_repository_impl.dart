@@ -9,11 +9,11 @@ class NoteRepositoryImpl implements NoteRepository {
 
   NoteRepositoryImpl(this.noteRemoteDataSource);
   @override
-  Future<Either<Failures, Unit>> createNote({required String title}) async {
+  Future<Either<Failures, Unit>> createNote({required String title, required int id}) async {
     try {
       final note = Note(
         text: title,
-        id: int.parse(const Uuid().v1())
+        id: id
       );
       await noteRemoteDataSource.createNote(note: note);
       return right(unit);

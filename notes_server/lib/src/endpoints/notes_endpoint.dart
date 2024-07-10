@@ -5,7 +5,7 @@ class NotesEndpoint extends Endpoint {
   Future<void> createNote(Session session, Note note) async {
     try {
       await Note.db.insertRow(session, note);
-    } on DatabaseDeleteRowException catch (e) {
+    } on DatabaseInsertRowException catch (e) {
       session.log(e.toString());
       throw CustomException(message: e.message);
     } catch (e) {
@@ -32,7 +32,7 @@ class NotesEndpoint extends Endpoint {
         session,
         orderBy: (t) => t.id,
       );
-    } on DatabaseDeleteRowException catch (e) {
+    } on DatabaseException catch (e) {
       session.log(e.toString());
       throw CustomException(message: e.message);
     } catch (e) {
@@ -48,7 +48,7 @@ class NotesEndpoint extends Endpoint {
         note,
       );
       return updatedNote;
-    } on DatabaseDeleteRowException catch (e) {
+    } on DatabaseUpdateRowException catch (e) {
       session.log(e.toString());
       throw CustomException(message: e.message);
     } catch (e) {
